@@ -1,12 +1,12 @@
 # diskbench
 
-## Install
+## 1.Install
 ```
 cd rpms
 yum install *.rpm
 ```
 
-## Parameters
+## 2.Parameters
 ```
 Usage: diskbench.sh: [OPTIONS]
   -d devices      : Device list(sep with space) or file contains device,one device per line
@@ -25,26 +25,28 @@ Usage: diskbench.sh: [OPTIONS]
   -z              : init write disk
 ```
 
-## Examples
+## 3.Examples
 
-### test one disk with spedified model
+### 3.1 test one disk with spedified model
 ```
 sh diskbench.sh -d /dev/xvde -b 4k -m randwrite -i 1 -s 10G -t 120 -c
 ```
 
-### test one disk with profile(multiple model)
+### 3.2 test one disk with profile(support multiple model)
 ```
 sh diskbench.sh -d /dev/xvde -p examples/s3.txt
 ```
 
-### test multiple disk with profile
+### 3.3 test multiple disk with profile
 ```
 lsblk -pd | grep 100G | awk '{print $1}' > disks.txt
 sh diskbench.sh -d disks.txt -p examples/s3_vm.txt
 ```
 
-## Results
+## 4.Results
+```
 fio_result\result.csv: test result of every single disk and model
 fio_result\summary.csv: test result of every single model
+```
 
-## FAQ
+## 5.FAQ
