@@ -472,7 +472,7 @@ else
 fi
 summary_file="${output_dir}/summary.csv"
 print_header | tee ${summary_file}
-cat ${result_file} | tail -n +2 | awk '{print $1}' | sed s'/[a-zA-Z]*_//' | uniq | while read model
+cat ${result_file} | tail -n +2 | awk '{print $1}' | sed s'/^[a-zA-Z0-9]*_//' | uniq | while read model
 do
   cat ${result_file} | grep "_${model}" | awk -v model="${model}" 'BEGIN{minLat=10000;maxLat=0}{iops+=$2;bw+=$3;lat+=$4;minLat=$5<minLat?$5:minLat;maxLat=$6>maxLat?$6:maxLat;lat90+=$7}END{printf("%20s\t%10d\t%10.2f\t%10.2f\t%10.2f\t%10.2f\t%10.2f\n",model,iops,bw,lat/NR,minLat,maxLat,lat90/NR)}' | tee -a ${summary_file}
 done
